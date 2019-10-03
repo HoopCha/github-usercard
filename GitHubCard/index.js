@@ -17,7 +17,18 @@ axios
         const username = response.login;
         autoFollowersArray.push(username)
       })
+      autoFollowersArray.forEach(userName => {
+        console.log(`https://api.github.com/users/${userName}`)
+        axios.get(`https://api.github.com/users/${userName}`)
+        .then(response => {
+          const myInfo = response.data;
+          const card = userCard(myInfo);
+          cards.appendChild(card);
+        })
+      })
+      
     })
+    
     const card = userCard(myInfo);
     cards.appendChild(card);
   })
@@ -56,17 +67,16 @@ const followersArray = [
   'bigknell'
 ];
 
-console.log(autoFollowersArray)
+// followersArray.forEach(userName => {
+//   console.log(`https://api.github.com/users/${userName}`)
+//   axios.get(`https://api.github.com/users/${userName}`)
+//   .then(response => {
+//     const myInfo = response.data;
+//     const card = userCard(myInfo);
+//     cards.appendChild(card);
+//   })
+// })
 
-followersArray.forEach(userName => {
-  console.log(`https://api.github.com/users/${userName}`)
-  axios.get(`https://api.github.com/users/${userName}`)
-  .then(response => {
-    const myInfo = response.data;
-    const card = userCard(myInfo);
-    cards.appendChild(card);
-  })
-})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
